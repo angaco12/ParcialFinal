@@ -4,11 +4,14 @@ import FormularioAG from './components/FormularioAG';
 
 function App() {
   const [nombre, setNombre] = useState('');
+  const [deckid, setdeckid] = useState("")
   return (
 
         <FormularioAG
           nombre={nombre}
           setNombre={setNombre}
+          setdeckid={setdeckid}
+          deckid={deckid}
           />
   )
 }

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { ImagenAG } from "./ImagenAG";
 
-export const FormularioAG = ({nombre, setNombre}) =>{
+export const FormularioAG = ({nombre, setNombre, setdeckid, deckid}) =>{
 
     const [api, setapi] = useState(true);
     const [carta1, setcarta1] = useState([])
     const [extra, setextra] = useState(true);
+    
 
     useEffect(() => {
            if (api === false) {
@@ -15,6 +16,8 @@ export const FormularioAG = ({nombre, setNombre}) =>{
                 const log = await resp.json();
                 console.log(log);
                 console.log(log.deck_id)
+                setdeckid(log.deck_id)
+                console.log(deckid);
 
                 const url2 = `https://deckofcardsapi.com/api/deck/${log.deck_id}/draw/?count=1`
                 const resp1 = await fetch(url2);
@@ -28,16 +31,6 @@ export const FormularioAG = ({nombre, setNombre}) =>{
            }
       },  [api]) 
 
-      useEffect(()=>{
-        const extra = async ()=>{
-        const url2 = `https://deckofcardsapi.com/api/deck/${log.deck_id}/draw/?count=1`
-        const resp1 = await fetch(url2);
-        const log1 = await resp1.json();
-        console.log(log1);
-        setcarta1(log1);
-        }
-       extra()
-    }, [setextra])
 
 
     const handlerInput = ({ target }) => {
@@ -64,11 +57,6 @@ export const FormularioAG = ({nombre, setNombre}) =>{
            setcarta1 = {setcarta1}
            carta1 = {carta1}
          />
-         <div>
-         <button type='submit' onClick={()=> setextra(false) }>
-             PedirCarta
-        </button>
-         </div>
         </div>
         
         
